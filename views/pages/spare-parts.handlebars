@@ -1,0 +1,163 @@
+<title>Stok | Yedek Parça</title>
+
+<header>
+    <div class="px-3 py-2 bg-custom border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <h1 class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">Yedek
+                    Parça Stok</h1>
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                    <li class="header-li">
+                        <a href="/" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1 svg-icon" width="32" height="32" src="assets/home.svg">
+                            <h6>Ana Sayfa</h6>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/machinery" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1 svg-icon" width="32" height="32"
+                                src="assets/machinery.svg">
+                            <h6>Makine</h6>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/spare-parts" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1 svg-icon" width="32" height="32"
+                                src="assets/spare-parts.svg">
+                            <h6>Yedek Parça</h6>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="main-container">
+
+    <main class="container mt-4 main-content">
+        <h2 class="mb-4">Stok Listesi</h2>
+
+        <div class="alert alert-info">
+            <h5 class="mb-0">Son Güncellenme:</h5>
+            <p class="mb-0">{{lastUpdated}}</p>
+        </div>
+        <h2 class="mt-4 mb-4">Yeni Stok Ekle</h2>
+        <form action="/spare-parts/add" method="POST">
+            <div class="mb-3">
+                <label for="item" class="form-label">Ürün:</label>
+                <input type="text" id="item" name="item" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary px-4">Ekle</button>
+        </form>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12 d-flex">
+                    <!-- İlk 3 sütun -->
+                    <div class="flex-shrink-0">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Ürün</th>
+                                    <th>Son Güncellenme</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each spareParts}}
+                                <tr>
+                                    <td>{{this.id}}</td>
+                                    <td>{{this.item}}</td>
+                                    <td>{{this.last_updated}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+        
+                    <!-- Orta sütunlar -->
+                    <div class="flex-grow-1 overflow-auto">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        {{#each sizes}}
+                                        <th>{{this}}</th>
+                                        {{/each}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each spareParts}}
+                                    <tr>
+                                        {{#each this.quantities}}
+                                        <td>{{this}}</td>
+                                        {{/each}}
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                    <!-- Butonlar -->
+                    <div class="flex-shrink-0">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each spareParts}}
+                                <tr>
+                                    <td class="text-end align-middle">
+                                        <button type="button" class="buton btn-guncelle" data-bs-toggle="modal"
+                                            data-bs-target="#updateModal" data-id="{{this.id}}" data-item="{{this.item}}">
+                                            Güncelle
+                                        </button>
+                                        <form action="/spare-parts/delete/{{this.id}}" method="POST"
+                                            style="display:inline-block;" class="mx-2">
+                                            <button type="submit" class="buton btn-sil">Sil</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Yedek Parça Güncelle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm" action="" method="POST">
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Adet:</label>
+                        <input type="number" id="quantity" name="quantity" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Boyut:</label>
+                        <select id="size" name="size" class="form-control">
+                            {{#each sizes}}
+                            <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+.bg-custom {
+    background-color: #2a9d8f;
+}
+
+.bg-custom h1 {
+    font-size: 300%;
+    font-weight: bold;
+}
+
+.bg-custom li:hover {
+    filter: invert(84%) sepia(0%) saturate(0%) hue-rotate(108deg) brightness(105%) contrast(95%);
+}
+
+.svg-icon {
+    filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
+}
+
+.table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  .table .text-end {
+    text-align: right;
+  }
+  
+  .table .buton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
+    font-weight: bold;
+    font-size: 0.875rem;
+    height: 10px;
+  }
+  
+.btn-guncelle {
+    color: rgb(160, 140, 30);
+}
+.btn-guncelle:hover {
+    color: rgb(131, 116, 31);
+}
+
+.btn-sil {
+    color: rgb(196, 23, 23);
+}
+.btn-sil:hover {
+    color: rgb(161, 69, 69);
+}
