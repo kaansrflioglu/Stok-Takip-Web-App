@@ -3,7 +3,6 @@
 
 ### Bu projenin yapımında aşağıdaki  Node.js paketleri kullanılmıştır.
  - body-parser
- - cors
  - express
  - express-handlebars
  - moment
